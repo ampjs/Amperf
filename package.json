@@ -39,6 +39,6 @@
   },
   "dependencies": {
     "@ampersarnie/outputs": "^0.1.0",
-    "@ampersarnie/implements": "^0.1.2"
+    "@ampersarnie/implements": "^0.2.0"
   }
 }
