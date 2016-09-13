@@ -2,7 +2,7 @@
   "name": "@ampersarnie/amperf",
   "version": "0.1.0",
   "description": "Amperf",
-  "main": "amperf.js",
+  "main": "./lib/AmperfNode.js",
   "options": {},
   "bin": {
     "amperf": "./bin/amperf"
