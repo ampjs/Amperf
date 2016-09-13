@@ -1,5 +1,5 @@
 import AmperfTest from './AmperfTest.js'
-import Outputs from 'outputs';
+import Outputs from '@ampersarnie/outputs';
 
 /**
  * Initial booting of Amperf

@@ -1,4 +1,4 @@
-import Outputs from 'outputs';
+import Outputs from '@ampersarnie/outputs';
 import DefaultTemplate from './DefaultTemplate.js';
 
 /**

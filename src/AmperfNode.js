@@ -1,7 +1,7 @@
 import Amperf from './Amperf.js';
 import path from 'path';
 import fs from 'fs';
-import Outputs from 'outputs';
+import Outputs from '@ampersarnie/outputs';
 
 /**
  * @class
