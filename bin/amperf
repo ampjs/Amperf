@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+let AmperfNode = require('../lib/AmperfNode.js').default;
+let Amperf = new AmperfNode();
