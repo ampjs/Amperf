@@ -1,6 +1,6 @@
 {
   "name": "@ampersarnie/amperf",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Amperf",
   "main": "amperf.js",
   "options": {},
