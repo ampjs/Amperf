@@ -1,4 +1,4 @@
-import Outputs from 'outputs';
+import Outputs from '@ampersarnie/outputs';
 
 class ExampleTemplate {
     group(definition) {
