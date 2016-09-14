@@ -96,7 +96,10 @@ class AmperfTest {
         try {
             iterationResults.output = test();
         } catch(error) {
-            iterationResults.output = error;
+            iterationResults.output = {
+                type: 'Exception',
+                output: error
+            }
         }
 
         iterationResults.memory_used = this.memoryUsed(initialMemory);
