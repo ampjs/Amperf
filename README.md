@@ -14,7 +14,7 @@ It's recommended that you install Amperf globally through NPM.
 ```
 npm i -g @ampersarnie/amperf
 ```
-[Add an alias to `./bin/amperf` in your bash profile](https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions#how-to-declare-a-bash-alias). NPM will install global modules to `/usr/local/lib/node` or `/usr/local/lib/node_modules`. The full path will be similar to; `/usr/local/lib/node_modules/@ampersarnie/amperf/bin/amperf`.
+You may need to [add an alias to `./bin/amperf` in your bash profile](https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions#how-to-declare-a-bash-alias). NPM will install global modules to `/usr/local/lib/node` or `/usr/local/lib/node_modules`. The full path will be similar to; `/usr/local/lib/node_modules/@ampersarnie/amperf/bin/amperf`.
 
 ## Tests
 ```js
