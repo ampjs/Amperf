@@ -93,7 +93,11 @@ class AmperfTest {
             startTime = process.hrtime(),
             initialMemory = process.memoryUsage().rss;
 
-        iterationResults.output = test();
+        try {
+            iterationResults.output = test();
+        } catch(error) {
+            iterationResults.output = error;
+        }
 
         iterationResults.memory_used = this.memoryUsed(initialMemory);
         iterationResults.execution_time = this.executionTime(startTime);
