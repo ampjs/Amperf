@@ -25,6 +25,9 @@ class AmperfTest {
         this.results = {};
         this.current = {};
 
+        this._console = console;
+        this.consoleOutput = [];
+
         this.Template = new AmperfTemplate(this.options.template);
         this.Template.group(this.definition);
 
@@ -68,9 +71,13 @@ class AmperfTest {
         };
 
         do {
+            this._consoleReplace();
+
             // Store each iteration.
             this.Template.testItemIteration(this.results.count++);
             this.current = this._runTestIteration(test);
+
+            this._consoleReinstate();
 
             // Increment the time and memory used.
             timeAverage += this.current.execution_time;
@@ -89,16 +96,23 @@ class AmperfTest {
     }
 
     _runTestIteration(test) {
-        let iterationResults = {},
+        let iterationResults = {
+                output: {
+                    type: 'Test',
+                    console: [],
+                    returned: null
+                }
+            },
             startTime = process.hrtime(),
             initialMemory = process.memoryUsage().rss;
 
         try {
-            iterationResults.output = test();
+            iterationResults.output.returned = test();
+            iterationResults.output.console = this.consoleOutput;
         } catch(error) {
             iterationResults.output = {
                 type: 'Exception',
-                output: error
+                returned: error,
             }
         }
 
@@ -106,6 +120,22 @@ class AmperfTest {
         iterationResults.execution_time = this.executionTime(startTime);
 
         return iterationResults;
+    }
+
+    _consoleReplace() {
+        for(let method in console) {
+            if(method !== 'log') console[method] = this._consoleCatch.bind(this);
+        }
+    }
+
+    _consoleCatch() {
+        this.consoleOutput.push(arguments);
+    }
+
+    _consoleReinstate() {
+        for(let method in this.console) {
+            console[method] = this._console[method];
+        }
     }
 
     _setTime(type = 'fastest') {
