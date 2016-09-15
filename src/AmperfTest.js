@@ -133,7 +133,7 @@ class AmperfTest {
     }
 
     _consoleReinstate() {
-        for(let method in this.console) {
+        for(let method in this._console) {
             console[method] = this._console[method];
         }
     }
