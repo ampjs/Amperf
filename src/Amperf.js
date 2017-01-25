@@ -17,6 +17,7 @@ class Amperf {
         this.default_options =  {
             iterations: 100,
             show: ['cycle_time', 'time_average', 'memory_average', 'time_fastest', 'time_slowest'],
+            dev_mode: false
             // run: [],
             // save: false,
             // save_file: 'amperf-result.json'
@@ -55,7 +56,7 @@ class Amperf {
         /**
          * Add the current test setup to the tests object.
          */
-        this.tests.push(results);
+        this.tests.push(test);
 
         return this;
     }

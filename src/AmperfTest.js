@@ -25,7 +25,7 @@ class AmperfTest {
         this.results = {};
         this.current = {};
 
-        this._console = console;
+        this._console = {};
         this.consoleOutput = [];
 
         this.Template = new AmperfTemplate(this.options.template);
@@ -71,13 +71,9 @@ class AmperfTest {
         };
 
         do {
-            this._consoleReplace();
-
             // Store each iteration.
             this.Template.testItemIteration(this.results.count++);
             this.current = this._runTestIteration(test);
-
-            this._consoleReinstate();
 
             // Increment the time and memory used.
             timeAverage += this.current.execution_time;
@@ -91,18 +87,12 @@ class AmperfTest {
 
         this._calculateEndTimes(timeAverage, memoryAverage);
 
-        return test;
+        return this;
 
     }
 
     _runTestIteration(test) {
-        let iterationResults = {
-                output: {
-                    type: 'Test',
-                    console: [],
-                    returned: null
-                }
-            },
+        let iterationResults = {},
             startTime = process.hrtime(),
             initialMemory = process.memoryUsage().rss;
 
@@ -119,23 +109,9 @@ class AmperfTest {
         iterationResults.memory_used = this.memoryUsed(initialMemory);
         iterationResults.execution_time = this.executionTime(startTime);
 
+        AmperfStorage.add(iterationResults);
+
         return iterationResults;
-    }
-
-    _consoleReplace() {
-        for(let method in console) {
-            if(method !== 'log') console[method] = this._consoleCatch.bind(this);
-        }
-    }
-
-    _consoleCatch() {
-        this.consoleOutput.push(arguments);
-    }
-
-    _consoleReinstate() {
-        for(let method in this._console) {
-            console[method] = this._console[method];
-        }
     }
 
     _setTime(type = 'fastest') {

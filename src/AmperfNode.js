@@ -1,4 +1,5 @@
 import Amperf from './Amperf.js';
+import AmperfStorage from './AmperfStorage.js';
 import path from 'path';
 import fs from 'fs';
 import Outputs from '@ampersarnie/outputs';
@@ -18,13 +19,18 @@ class AmperfNode extends Amperf {
             template: __dirname + '/DefaultTemplate.js'
         });
 
+        this.storage = [];
+
         if(typeof process !== 'undefined') {
+            process.on('exit', this.onExit.bind(this));
+
             this._setNodeArguments();
 
             /**
              * @todo check if file exists. path.existsSync(this.options.file);
              */
             global.Amperf = this;
+            global.AmperfStorage = new AmperfStorage();
             this.loadTests();
         } else {
             console.warn('AmperfNode can only run in a node environment, please use Amperf for the browser.');
@@ -47,7 +53,13 @@ class AmperfNode extends Amperf {
             if(stat.isFile()) {
                 this.loadFile(target);
             }
+
+            this.saveToFile();
         });
+    }
+
+    saveToFile() {
+        // console.log('saveFile data', this);
     }
 
     loadDirectory(directory) {
@@ -83,7 +95,7 @@ class AmperfNode extends Amperf {
             switch(items[0]) {
                 // Load a sepecified file.
                 case '--file':
-                case '-f':
+                case '--f':
                     this.options.file = array[index+1];
                     break;
                 case '--template':
@@ -119,6 +131,10 @@ class AmperfNode extends Amperf {
                  */
             }
         });
+    }
+
+    onExit() {
+        console.log(AmperfStorage);
     }
 }
 
